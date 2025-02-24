@@ -10,6 +10,8 @@ diff_output.txt
 *.sqlitebak
 *.stackdump
 *.sw[op]
+*.csv
+*.json
 *~
 codeship.aes
 deploycfg_key_*
@@ -27,7 +29,9 @@ application/url_miner/logs/
 .nfs*
 .vagrant/
 tmp/
+databases/
 recruitment_output/
+
 \#*#
 
 backups

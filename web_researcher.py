@@ -639,8 +639,13 @@ def process_url(url: str, db: URLDatabase, driver) -> None:
 
 def main():
     db = URLDatabase()
-    urls_from_files = get_unique_urls_from_csvs('ht_csv', 'url', 4, 1000)
-    urls_from_db = pd.DataFrame(db.search_urls(limit=1000000))['url'].tolist()
+    urls_from_files = get_unique_urls_from_csvs('output', 'url', 4, 1000)
+    if pd.DataFrame(db.search_urls(limit=1000000)).empty:
+        urls_from_db=[]
+        logger.info("No urls in the db.")
+    else:
+        urls_from_db = pd.DataFrame(db.search_urls(limit=1000000))['url'].tolist()
+        logger.info(f"{len(urls_from_db)} urls in the db.")
     urls = list(set(urls_from_files) - set(urls_from_db))
     logger.info(f"Found {len(urls)} new URLs to process.")
     driver = initialize_selenium()
